@@ -81,6 +81,64 @@
   var STATUSES = [['Любой статус', ''], ['Строится', 'build'], ['В продаже', 'sale'], ['Сдан', 'done'], ['Скоро', 'soon']];
   var PHONE = '+7 (700) 040-04-00', TEL = 'tel:+77000400400', WA = 'https://wa.me/77000400400';
   var OFFICES = ['ул. Толе би, 101, БЦ «Толе би», 1 этаж', 'пр. Абая, 44а, ТРК «PROMENADE», 1 этаж', 'Ташкентский тракт, с. Иргели', 'ул. Халиуллина, 154Б, мкр. Думан-2', 'мкр. Ботакоз 2 (у школы-гимназии № 209)'];
+
+  // ---------- логотипы ----------
+  // Чтобы добавить логотип клиента: положить файл в img/logos/ и добавить строку сюда.
+  var LOGOS = [
+    { id: 'app', name: 'Everest App', note: 'вариант для прототипа', src: 'img/logo-app.svg' },
+    { id: 'ed', name: 'Everest Development', note: 'с сайта ed.group', src: ST + 'settings/June2025/o28Xgh3R4DZQEVlTN8l7.svg' }
+  ];
+  var LS_LOGO = 'everest-logo', LS_CUSTOM = 'everest-logo-custom', LS_WHITE = 'everest-logo-white';
+  function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function lsSet(k, v) { try { v === null ? localStorage.removeItem(k) : localStorage.setItem(k, v); return true; } catch (e) { return false; } }
+  var urlLogo = (location.search.match(/[?&]logo=([\w-]+)/) || [])[1];
+  var LOGO = {
+    id: urlLogo || lsGet(LS_LOGO) || 'app',
+    custom: lsGet(LS_CUSTOM),
+    white: (location.search.match(/[?&]white=1/) ? '1' : lsGet(LS_WHITE)) === '1'
+  };
+  function logoById(id) { return LOGOS.filter(function (l) { return l.id === id; })[0]; }
+  function logoSrc() {
+    if (LOGO.id === 'custom' && LOGO.custom) return LOGO.custom;
+    return (logoById(LOGO.id) || LOGOS[0]).src;
+  }
+  function logoImg(cls, src) {
+    return '<img class="' + cls + (LOGO.white ? ' white' : '') + '" src="' + (src || logoSrc()) + '" alt="Логотип" onerror="this.src=\'img/logo-app.svg\'">';
+  }
+  function applyLogo() {
+    var l = document.querySelector('link[rel=icon]');
+    if (l) l.href = logoSrc();
+  }
+  function shareLink() {
+    var base = location.origin + location.pathname;
+    return base + '?logo=' + LOGO.id + (LOGO.white ? '&white=1' : '') + '#/main';
+  }
+  function logoSheet() {
+    var opts = LOGOS.slice();
+    if (LOGO.custom) opts.push({ id: 'custom', name: 'Свой файл', note: 'только на этом устройстве', src: LOGO.custom });
+    sheet.innerHTML = '<div class="overlay"><div class="bg" data-act="close"></div><div class="panel" role="dialog" aria-label="Логотип"><div class="grab"></div>' +
+      '<div class="between"><h2 style="font-size:22px;font-weight:600">Логотип приложения</h2><button class="iconbtn" data-act="close" aria-label="Закрыть">' + ic('close', 20, 2) + '</button></div>' +
+      '<div style="display:flex;flex-direction:column;gap:10px;max-height:46vh;overflow-y:auto">' +
+      opts.map(function (o) {
+        var on = o.id === LOGO.id;
+        return '<button class="logoopt' + (on ? ' on' : '') + '" data-act="picklogo" data-arg="' + o.id + '"><span class="lprev">' + logoImg('lp', o.src) + '</span>' +
+          '<span style="flex:1;min-width:0;text-align:left"><span style="display:block;font-size:15px;font-weight:600">' + esc(o.name) + '</span><span class="mut" style="font-size:12px">' + esc(o.note) + '</span></span>' +
+          '<span class="gold">' + (on ? ic('check', 20, 2.2) : '') + '</span></button>';
+      }).join('') +
+      '<label class="logoopt" style="cursor:pointer"><span class="lprev gold">' + ic('clip', 22, 2) + '</span><span style="flex:1"><span style="display:block;font-size:15px;font-weight:600">Загрузить свой</span><span class="mut" style="font-size:12px">PNG или SVG, лучше на прозрачном фоне</span></span><input type="file" id="logofile" accept="image/png,image/svg+xml,image/jpeg,image/webp" class="sr"></label>' +
+      '</div>' +
+      '<button class="logoopt" data-act="logowhite" style="justify-content:space-between"><span style="font-size:15px">Сделать логотип белым<span class="mut" style="display:block;font-size:12px">если он тёмный и не виден на фоне</span></span><span class="switch' + (LOGO.white ? ' on' : '') + '"><i></i></span></button>' +
+      (LOGO.id === 'custom' ? '' : '<button class="btn outline" data-act="copylogo">Скопировать ссылку с этим логотипом</button>') +
+      '<button class="btn" data-act="close">Готово</button></div></div>';
+  }
+  function splash() {
+    var el = document.createElement('div');
+    el.className = 'splash';
+    el.innerHTML = logoImg('splashlogo');
+    document.querySelector('.screen').appendChild(el);
+    setTimeout(function () { el.classList.add('out'); }, 900);
+    setTimeout(function () { el.remove(); }, 1400);
+  }
   var SHEETS = {
     pay: { title: 'Оплата', text: 'Коммунальные услуги и обслуживание по кв. 104.', rows: [['К оплате', '[СУММА] ₸'], ['Период', '[МЕСЯЦ]']], cta: 'Оплатить' },
     docs: { title: 'Документы', text: 'Договоры, акты и квитанции по объекту.', rows: [['Договор ДДУ', 'PDF'], ['Акт приёма-передачи', 'PDF']], cta: 'Готово' },
@@ -122,7 +180,8 @@
   }
 
   function Main() {
-    var h = '<div class="between" style="align-items:flex-start"><div class="col" style="gap:6px"><h1>Главная</h1>' +
+    var h = '<button class="logobtn" data-act="logo" aria-label="Сменить логотип">' + logoImg('logo') + '</button>' +
+      '<div class="between" style="align-items:flex-start;margin-top:-8px"><div class="col" style="gap:6px"><h1>Главная</h1>' +
       '<button class="link gold" data-act="flat" style="font-size:16px;min-height:28px">' + esc(FLATS[S.flat]) + ' ' + ic('down', 16, 2) + '</button></div>' +
       '<div class="row"><button class="iconbtn" data-act="sheet" data-arg="notif" aria-label="Уведомления">' + ic('bell', 24) + '<span class="dot"></span></button><div class="avatar">М</div></div></div>';
     if (S.flatOpen) {
@@ -297,6 +356,14 @@
       case 'flat': S.flatOpen = !S.flatOpen; return render(true);
       case 'pickflat': S.flat = +arg; S.flatOpen = false; return render(true);
       case 'sheet': return openSheet(arg);
+      case 'logo': return logoSheet();
+      case 'picklogo': LOGO.id = arg; lsSet(LS_LOGO, arg); applyLogo(); render(true); return logoSheet();
+      case 'logowhite': LOGO.white = !LOGO.white; lsSet(LS_WHITE, LOGO.white ? '1' : null); render(true); return logoSheet();
+      case 'copylogo':
+        var link = shareLink();
+        if (navigator.clipboard) navigator.clipboard.writeText(link).then(function () { toast('Ссылка скопирована'); }, function () { prompt('Ссылка:', link); });
+        else prompt('Ссылка:', link);
+        return;
       case 'close': sheet.innerHTML = ''; return;
       case 'go': location.hash = '#/' + arg; return;
       case 'toast': return toast(arg);
@@ -321,9 +388,23 @@
     if (e.target.id === 'comment') S.comment = e.target.value;
   });
   document.addEventListener('change', function (e) {
+    if (e.target.id === 'logofile' && e.target.files[0]) {
+      var f = e.target.files[0];
+      if (f.size > 1500000) { toast('Файл больше 1.5 МБ'); return; }
+      var rd = new FileReader();
+      rd.onload = function () {
+        LOGO.custom = rd.result; LOGO.id = 'custom';
+        if (!lsSet(LS_CUSTOM, rd.result)) toast('Не сохранится после перезагрузки');
+        lsSet(LS_LOGO, 'custom'); applyLogo(); render(true); logoSheet();
+      };
+      rd.readAsDataURL(f);
+      return;
+    }
     if (e.target.id === 'work') S.work = e.target.value;
   });
   window.addEventListener('hashchange', function () { sheet.innerHTML = ''; S.flatOpen = false; render(); });
 
+  applyLogo();
   render();
+  splash();
 })();

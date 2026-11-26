@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 64" fill="none">
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="#132443" stroke="#E2BF6A" stroke-width="2"/>
+  <path d="M15 46 L32 17 L49 46 Z" stroke="#E2BF6A" stroke-width="4.5" stroke-linejoin="round"/>
+  <path d="M25 35 L32 40 L39 35" stroke="#E2BF6A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="76" y="30" font-family="Inter, system-ui, sans-serif" font-size="22" font-weight="700" fill="#EEF1F6" letter-spacing="0.5">EVEREST</text>
+  <text x="76" y="52" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#E2BF6A" letter-spacing="3">APP</text>
+</svg>
