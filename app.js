@@ -47,7 +47,7 @@
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
 
   // ---------- data ----------
-  var FLATS = ['ЖК Everest, кв. 104', 'ЖК Everest Grand, кв. 57', 'Паркинг Everest, м/м 12'];
+  var FLATS = ['ЖК Everest, кв. 104', 'ЖК Everest Boulevard, кв. 57', 'Паркинг Everest, м/м 12'];
   var LOCS = [
     { name: 'Квартира', icon: 'building', cats: [['Сантехника', 'pipe'], ['Электричество', 'bolt'], ['Плотницкие работы', 'ruler'], ['Домофон', 'intercom'], ['Окна', 'window'], ['Двери', 'door'], ['Вентиляция', 'fan']] },
     { name: 'Подъезд', icon: 'door', cats: [['Освещение', 'lamp'], ['Лифт', 'lift'], ['Уборка', 'broom'], ['Домофон', 'intercom'], ['Двери', 'door']] },
@@ -60,12 +60,27 @@
     'Электричество': ['Ремонт розетки', 'Замена выключателя', 'Не работает свет', 'Установка светильника'],
     'Домофон': ['Настройка домофона', 'Не открывает дверь', 'Нет звука']
   };
+  // Данные с ed.group (Everest Development). Цен на сайте нет — показываем «Узнать цену».
+  var ST = 'https://ed.group/storage/';
   var JK = [
-    { id: 'grand', name: 'ЖК Everest Grand', addr: '(ул. Розыбакиева)', min: 24.5, maxRooms: 4, floors: '12-18 этажей', rooms: '1-4 комнатные', term: 'IV кв. 2026', img: 'img/grand.jpg' },
-    { id: 'heights', name: 'ЖК Everest Heights', addr: '(просп. Аль-Фараби)', min: 31.8, maxRooms: 3, floors: '14 этажей', rooms: '1-3 комнатные', term: 'II кв. 2027', img: '' }
+    { id: 'athletic', name: 'ЖК «Athletic Park»', cls: 'Комфорт', addr: 'пр. Рыскулова – Онгарсыновой', near: '2 мин до Almaty Arena', st: 'build', term: 'I кв. 2027', units: '694 квартиры', site: 'athleticpark.kz', img: ST + 'projects/November2026/athletic-q2-04.jpg' },
+    { id: 'premier', name: 'ЖК «Premier»', cls: 'Бизнес', addr: '12 мкр., ул. Шаляпина', near: '10 мин до ТРЦ MOSKVA', st: 'build', term: 'I кв. 2027', units: '5 блоков', site: 'premier.ed.group', img: ST + 'projects/August2026/UHFamj52wFOrxjVkoD4q.jpg' },
+    { id: 'boulevard', name: 'ЖК «Everest Boulevard»', cls: 'Комфорт +', addr: 'ул. Халиуллина, мкр. Думан-2', near: '10 мин до аэропорта', st: 'sale', term: '', units: '8 блоков', site: 'everest-boulevard.kz', img: ST + 'projects/June2025/yo9FyUrhuCASvCPWFTVD.jpg' },
+    { id: 'arna', name: 'ЖК «Arna»', cls: 'Комфорт', addr: 'Ташкентский тракт, с. Иргели', near: '5 мин до Aport Mall', st: 'sale', term: '', units: '', site: 'arna-almaty.kz', img: ST + 'projects/June2025/TdrM5n3PKFfkWUqgaW53.jpg' },
+    { id: 'shygys', name: 'ЖК «Shygys»', cls: 'Комфорт', addr: 'Талгарский р-н, Алатауская трасса', near: '2 мин до Aport Mall', st: 'build', term: 'I кв. 2028', units: '', site: '', img: ST + 'projects/August2026/shygys-1.jpg', note: '«Шығыс» — «Восток», сторона, откуда начинается день.' },
+    { id: 'turkistan', name: 'Turkistan Apartments', cls: 'Инвестиционный', addr: 'ул. Макатаева 51/34', near: '8 мин до парка 28 панфиловцев', st: 'sale', term: '', units: '125 номеров (апарт-отель)', site: 'turkistan-almaty.kz', img: ST + 'projects/June2025/QSLiZwAOOMXVrk64TX7F.jpg' },
+    { id: 'ermensai', name: 'Таунхаусы «Ermensai Village»', cls: 'Бизнес', addr: 'мкр. Нурлытау, 14-я улица', near: '5 мин до пр. Аль-Фараби', st: 'done', term: 'Сдан', units: 'Таунхаусы', site: 'e-village.kz', img: ST + 'projects/June2025/KmAealvYadrkCSHBwWIw.webp' },
+    { id: 'baganashil', name: 'Коттеджный городок «Baganashil Hills»', cls: 'Премиум', addr: 'мкр. Баганашил', near: '7 мин до пр. Аль-Фараби', st: 'sale', term: '', units: 'Коттеджи', site: 'b-hills.kz', img: ST + 'projects/June2025/AqWhWtIaElUFGQAVv5Go.webp' },
+    { id: 'everest', name: 'ЖК «Everest»', cls: 'Комфорт +', addr: 'ул. Утеген батыра, 11', near: '3 мин до ТРЦ GrandPark', st: 'done', term: 'Сдан', units: '', site: 'everest.moydom.kz', img: ST + 'projects/June2025/fg1iWgzCj9LZ8npcVUGE.webp' },
+    { id: 'turar', name: 'ЖК «Turar»', cls: 'Комфорт', addr: 'пр. Рыскулова', near: '12 мин до центра', st: 'done', term: 'Сдан', units: '35 домов', site: 'turar-almaty.kz', img: ST + 'projects/June2025/sp4JkG5M0EBEv65BvH0C.jpg' },
+    { id: 'park', name: 'ЖК «Everest Park»', cls: 'Скоро', addr: 'мкр. Ботакоз, у Almaty Arena', near: '4 мин до Almaty Arena', st: 'soon', term: '', units: '', site: '', img: ST + 'projects/August2026/everest-park-1.jpg' },
+    { id: 'promenade', name: 'Полицентр «Almaty Promenade»', cls: 'Скоро', addr: 'Медеуский р-н, у Aport Mall East', near: '6 мин до Halyk Arena', st: 'soon', term: '', units: 'Многофункциональный', site: '', img: ST + 'projects/August2026/venice-1.jpg' }
   ];
-  var PRICES = [['Цена', 999], ['до 25 млн', 25], ['до 35 млн', 35]];
-  var ROOMS = [['Комнатность', 0], ['4-комнатные', 4]];
+  var STATUS = { build: 'Строится', sale: 'В продаже', done: 'Сдан', soon: 'Скоро' };
+  var CLASSES = ['Все классы', 'Комфорт', 'Комфорт +', 'Бизнес', 'Премиум', 'Инвестиционный'];
+  var STATUSES = [['Любой статус', ''], ['Строится', 'build'], ['В продаже', 'sale'], ['Сдан', 'done'], ['Скоро', 'soon']];
+  var PHONE = '+7 (700) 040-04-00', TEL = 'tel:+77000400400', WA = 'https://wa.me/77000400400';
+  var OFFICES = ['ул. Толе би, 101, БЦ «Толе би», 1 этаж', 'пр. Абая, 44а, ТРК «PROMENADE», 1 этаж', 'Ташкентский тракт, с. Иргели', 'ул. Халиуллина, 154Б, мкр. Думан-2', 'мкр. Ботакоз 2 (у школы-гимназии № 209)'];
   var SHEETS = {
     pay: { title: 'Оплата', text: 'Коммунальные услуги и обслуживание по кв. 104.', rows: [['К оплате', '[СУММА] ₸'], ['Период', '[МЕСЯЦ]']], cta: 'Оплатить' },
     docs: { title: 'Документы', text: 'Договоры, акты и квитанции по объекту.', rows: [['Договор ДДУ', 'PDF'], ['Акт приёма-передачи', 'PDF']], cta: 'Готово' },
@@ -76,15 +91,18 @@
     polls: { title: 'Опросы', text: 'Голосования собственников ЖК.', rows: [['Благоустройство двора', 'Голосовать']], cta: 'Готово' },
     reports: { title: 'Отчёты', text: 'Отчёты УК о расходах и выполненных работах.', rows: [['Отчёт за квартал', 'PDF']], cta: 'Готово' },
     chat: { title: 'Елена В.', text: 'Менеджер объекта — УК Эверест. Напишите вопрос, ответ придёт в уведомления.', rows: [], cta: 'Открыть чат' },
-    news: { title: 'Строительный отчет за сентябрь 2026', text: 'Ход работ по ЖК Everest Grand: монолитные работы и фасад. Фотоотчёт и сроки — в полной версии.', rows: [], cta: 'Закрыть' },
-    notif: { title: 'Уведомления', text: 'Новых уведомлений: 1', rows: [['Строительный отчёт за сентябрь', 'Новое']], cta: 'Закрыть' }
+    promo7: { title: '7 героев. 7 квартир. Скидка 7%', text: 'Акция Everest Development от 16 сентября 2026. Условия уточняйте в отделе продаж.', rows: [['Отдел продаж', PHONE, TEL], ['WhatsApp', 'Написать', WA]], cta: 'Закрыть' },
+    mortgage: { title: 'Партнёрская ипотека', text: 'Ипотека с Банком ЦентрКредит на квартиры Everest Development. Ставки и условия — у менеджера.', rows: [['Отдел продаж', PHONE, TEL], ['WhatsApp', 'Написать', WA]], cta: 'Закрыть' },
+    storage: { title: 'Кладовые помещения', text: 'Кладовые в ЖК TURAR, Everest Boulevard и ARNA.', rows: [['Отдел продаж', PHONE, TEL], ['WhatsApp', 'Написать', WA]], cta: 'Закрыть' },
+    contacts: { title: 'Everest Development', text: 'Отдел продаж: sales@ed.group. Короткий номер — 202.', rows: [['Позвонить', PHONE, TEL], ['WhatsApp', 'Написать', WA], ['Telegram', 'everest_development', 'https://t.me/everest_development'], ['Instagram', 'everest_development_kz', 'https://instagram.com/everest_development_kz']].concat(OFFICES.map(function (o, i) { return ['Офис ' + (i + 1), o]; })), cta: 'Закрыть' },
+    notif: { title: 'Уведомления', text: 'Новые предложения Everest Development', rows: [['7 героев. 7 квартир. Скидка 7%', 'Новое'], ['Партнёрская ипотека ЦентрКредит', ''], ['Кладовые в TURAR, Boulevard, ARNA', '']], cta: 'Закрыть' }
   };
 
   // ---------- state ----------
   var S = {
     flat: 0, flatOpen: false,
     step: 'home', loc: 0, cat: 0, work: '', comment: '', extra: [], rated: {},
-    q: '', price: 0, rooms: 0, favOnly: false, favs: {}, consult: {}
+    q: '', cls: 0, status: 0, favOnly: false, favs: {}
   };
   try { var saved = JSON.parse(localStorage.getItem('everest') || '{}'); S.favs = saved.favs || {}; S.extra = saved.extra || []; } catch (e) {}
   function persist() { try { localStorage.setItem('everest', JSON.stringify({ favs: S.favs, extra: S.extra })); } catch (e) {} }
@@ -112,18 +130,26 @@
         return '<button data-act="pickflat" data-arg="' + i + '" class="' + (i === S.flat ? 'on' : '') + '"><span>' + esc(f) + '</span><span class="gold">' + (i === S.flat ? ic('check', 18, 2.2) : '') + '</span></button>';
       }).join('') + '</div>';
     }
-    var promos = [['-15%', 'на кладовые', '#2A3346,#17203A'], ['Ипотека 4.5%', 'на паркинг', '#36404F,#1A2234'], ['Ипотека 7%', 'на квартиры', '#2B3B4A,#15202F']];
+    var promos = [['promo7', 'Скидка 7%', '7 героев. 7 квартир', '#3A3420,#1A2234'], ['mortgage', 'Ипотека', 'с Банком ЦентрКредит', '#36404F,#1A2234'], ['storage', 'Кладовые', 'TURAR · Boulevard · ARNA', '#2B3B4A,#15202F']];
     h += '<section class="col"><h2>Акции и спец-предложения</h2><div class="hs">' + promos.map(function (p) {
-      return '<div class="promo" style="background:linear-gradient(160deg,' + p[2] + ')"><span class="chip sm">Акции</span><div><b>' + p[0] + '</b>' + p[1] + '</div></div>';
+      return '<button class="promo" style="all:unset;box-sizing:border-box;cursor:pointer;flex:0 0 180px;height:120px;border-radius:18px;padding:12px;border:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;background:linear-gradient(160deg,' + p[3] + ')" data-act="sheet" data-arg="' + p[0] + '"><span class="chip sm">Акции</span><div><b>' + p[1] + '</b><span style="font-size:14px">' + p[2] + '</span></div></button>';
     }).join('') + '</div></section>';
-    h += '<section class="col"><a href="#/catalog" class="link" style="font-size:19px;font-weight:500">Каталог наших ЖК с ценами «от» <span class="gold">' + ic('arrow', 18, 2) + '</span></a>' +
-      '<a href="#/catalog" class="hero"><img src="img/towers.jpg" alt=""><div class="t">Каталог<br>наших ЖК</div><div class="p"><span class="chip">от 24.5 млн ₸</span><span class="chip">от 31.8 млн ₸</span></div></a></section>';
+    var onSale = JK.filter(function (j) { return j.st !== 'done'; }).length;
+    h += '<section class="col"><a href="#/catalog" class="link" style="font-size:19px;font-weight:500">Каталог наших ЖК <span class="gold">' + ic('arrow', 18, 2) + '</span></a>' +
+      '<a href="#/catalog" class="hero"><img src="' + JK[0].img + '" alt="" onerror="this.src=\'img/towers.jpg\'"><div class="t">Каталог<br>наших ЖК</div><div class="p"><span class="chip">' + JK.length + ' проектов</span><span class="chip">' + onSale + ' в продаже и скоро</span></div></a></section>';
+    var stats = [['134 000+', 'м² жилья сдано'], ['3 068+', 'жителей получили ключи'], ['10+', 'проектов'], ['5 лет', 'на рынке']];
+    h += '<section class="col"><h2>Everest Development в цифрах</h2><div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px">' + stats.map(function (x) {
+      return '<div class="box" style="padding:12px 14px"><div class="gold" style="font-size:22px;font-weight:700">' + x[0] + '</div><div class="mut" style="font-size:13px">' + x[1] + '</div></div>';
+    }).join('') + '</div></section>';
     var svc = [['wrench', 'Вызов мастера'], ['shield', 'Безопасность'], ['broom', 'Уборка'], ['truck', 'Доставка']];
     h += '<section class="col"><h2>Услуги</h2><div class="svc">' + svc.map(function (s) {
       return '<a href="#/services"><span>' + ic(s[0], 28, 1.7) + '</span>' + s[1] + '</a>';
     }).join('') + '</div></section>';
-    h += '<section class="col"><h2>Новости Everest Dev</h2><div class="news"><div class="between" style="align-items:flex-start"><div style="font-size:20px;font-weight:500;line-height:1.25">Строительный отчет за сентябрь 2026</div>' +
-      '<button class="chip sm" style="border:0;cursor:pointer" data-act="sheet" data-arg="news">Читать →</button></div><div class="mut" style="font-size:14px;line-height:1.45">Ход работ по ЖК Everest Grand: монолит и фасадные работы.</div></div></section>';
+    var news = [['promo7', '16 сен 2026', '7 героев. 7 квартир. Скидка 7%'], ['mortgage', 'Ипотека', 'Партнёрская ипотека с Банком ЦентрКредит'], ['storage', 'Кладовые', 'Кладовые помещения в ЖК TURAR, Everest Boulevard и ARNA']];
+    h += '<section class="col"><h2>Новости Everest Development</h2>' + news.map(function (n, i) {
+      return '<button class="news" style="all:unset;box-sizing:border-box;cursor:pointer;border-radius:20px;padding:16px;background:' + (i ? 'var(--card)' : 'linear-gradient(135deg,#3A4A63 0%,#1C2840 70%)') + ';border:1px solid var(--line);display:flex;flex-direction:column;gap:8px" data-act="sheet" data-arg="' + n[0] + '"><div class="between"><span class="mut" style="font-size:12px">' + n[1] + '</span><span class="chip sm">Читать →</span></div><div style="font-size:' + (i ? 16 : 19) + 'px;font-weight:500;line-height:1.25">' + n[2] + '</div></button>';
+    }).join('') + '</section>';
+    h += '<button class="box row" style="all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:12px;border-radius:18px;background:var(--card);border:1px solid var(--line);padding:14px" data-act="sheet" data-arg="contacts"><span class="gold">' + ic('staff', 28, 1.6) + '</span><div style="flex:1"><div style="font-size:16px;font-weight:600">Отдел продаж</div><div class="mut" style="font-size:13px">' + PHONE + ' · 5 офисов в Алматы</div></div><span class="gold">' + ic('arrow', 18, 2) + '</span></button>';
     return h;
   }
 
@@ -141,7 +167,7 @@
       '<div style="flex:1;min-width:0"><div style="font-weight:600;font-size:16px">Менеджер объекта — ЖК</div><div class="mut" style="font-size:13px;margin-top:2px">Елена В. • УК Эверест</div></div>' +
       '<button class="side" data-act="sheet" data-arg="chat"><svg width="22" height="22" viewBox="0 0 24 24" fill="#E2BF6A" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Написать<span class="mut" style="font-size:11px">Прямая связь</span></button></div>';
     h += '<div class="box row"><div style="flex:1"><div style="font-size:16px">Перейти в чат дома</div><div class="mut row" style="font-size:13px;margin-top:4px;gap:6px">WhatsApp / Telegram <span style="width:16px;height:16px;border-radius:50%;background:#25D366"></span><span style="width:16px;height:16px;border-radius:50%;background:#2AABEE"></span></div></div>' +
-      '<button class="side gold" style="font-size:15px" data-act="toast" data-arg="Откроется чат дома в мессенджере">Войти →</button></div>';
+      '<button class="side gold" style="font-size:15px" data-act="sheet" data-arg="contacts">Войти →</button></div>';
     return h;
   }
 
@@ -189,32 +215,31 @@
   function jkList() {
     var q = S.q.trim().toLowerCase();
     var list = JK.filter(function (d) {
-      return (!q || d.name.toLowerCase().indexOf(q) >= 0 || d.addr.toLowerCase().indexOf(q) >= 0) &&
-        d.min <= PRICES[S.price][1] && d.maxRooms >= ROOMS[S.rooms][1] && (!S.favOnly || S.favs[d.id]);
+      return (!q || (d.name + ' ' + d.addr + ' ' + d.near).toLowerCase().indexOf(q) >= 0) &&
+        (!S.cls || d.cls === CLASSES[S.cls]) && (!S.status || d.st === STATUSES[S.status][1]) && (!S.favOnly || S.favs[d.id]);
     });
     if (!list.length) return '<div class="mut" style="padding:28px;text-align:center;border-radius:16px;border:1px dashed rgba(255,255,255,.2)">Ничего не найдено. Измените фильтры.</div>';
     return list.map(function (d) {
-      var c = S.consult[d.id];
-      return '<div class="jk">' + (d.img ? '<img src="' + d.img + '" alt="' + d.name + '">' : '') +
-        '<div class="between" style="padding:4px 8px 0;align-items:flex-start"><div><div style="font-size:20px;font-weight:500">' + d.name + '</div><div style="font-size:15px;color:#C9D0DC">' + d.addr + '</div></div>' +
-        '<div class="col" style="gap:6px;align-items:flex-end"><span class="chip" style="font-size:15px">от ' + d.min + ' млн ₸</span>' +
-        '<button class="heart ' + (S.favs[d.id] ? 'on' : '') + '" data-act="fav" data-arg="' + d.id + '" aria-label="В избранное"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' + I.heart + '</svg></button></div></div>' +
-        '<div class="meta"><span>' + d.floors + '</span><span>' + d.rooms + '</span><span>Срок: ' + d.term + '</span></div>' +
-        '<button class="btn outline" style="margin:0 8px 6px" data-act="consult" data-arg="' + d.id + '">' + (c ? 'Заявка отправлена ✓' : 'Получить консультацию') + '</button>' +
-        (c ? '<div class="mut" style="margin:0 8px 8px;padding:14px;border-radius:12px;background:#142039;font-size:14px;line-height:1.5">Менеджер отдела продаж перезвонит вам, расскажет о планировках и условиях ипотеки по ' + d.name + '.</div>' : '') +
+      var meta = [d.cls, STATUS[d.st] + (d.term && d.st !== 'done' ? ' · ' + d.term : ''), d.units].filter(Boolean);
+      return '<div class="jk"><div class="ph" style="position:relative;height:190px;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,#2B3A58,#141E33)"><img src="' + d.img + '" alt="' + esc(d.name) + '" loading="lazy" style="height:100%" onerror="this.remove()"><span class="chip sm" style="position:absolute;left:10px;top:10px">' + STATUS[d.st] + '</span></div>' +
+        '<div class="between" style="padding:4px 8px 0;align-items:flex-start"><div><div style="font-size:19px;font-weight:500">' + esc(d.name) + '</div><div style="font-size:14px;color:#C9D0DC">' + esc(d.addr) + '</div><div class="gold" style="font-size:13px;margin-top:2px">' + esc(d.near) + '</div></div>' +
+        '<button class="heart ' + (S.favs[d.id] ? 'on' : '') + '" data-act="fav" data-arg="' + d.id + '" aria-label="В избранное"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' + I.heart + '</svg></button></div>' +
+        '<div class="meta" style="flex-wrap:wrap;gap:4px 10px;justify-content:flex-start">' + meta.map(function (m) { return '<span>' + esc(m) + '</span>'; }).join('<span style="opacity:.4">|</span>') + '</div>' +
+        '<div class="row" style="margin:0 8px 6px;gap:8px"><button class="btn outline" style="flex:1" data-act="jk" data-arg="' + d.id + '">Подробнее</button><a class="btn" style="flex:1;padding:11px;border-radius:12px;font-size:14px" href="' + WA + '?text=' + encodeURIComponent('Здравствуйте! Интересует ' + d.name + '. Подскажите цены и планировки.') + '" target="_blank" rel="noopener">Узнать цену</a></div>' +
         '</div>';
     }).join('');
   }
 
   function Catalog() {
-    var h = '<div class="between"><h1 style="font-weight:500">Каталог</h1><div class="addr" style="text-align:center">ЖК Everest,<br>Блок Б, кв. 104</div><div class="avatar">М</div></div>';
-    h += '<div class="row"><label class="field" style="flex:1"><span class="mut">' + ic('search', 18, 2) + '</span><span class="sr">Искать ЖК</span><input id="q" placeholder="Искать ЖК" value="' + esc(S.q) + '"></label>' +
+    var h = '<div class="between"><h1 style="font-weight:500">Каталог</h1><div class="addr" style="text-align:center">Everest<br>Development</div><button class="avatar" style="cursor:pointer;color:inherit" data-act="sheet" data-arg="contacts" aria-label="Контакты">' + ic('staff', 20) + '</button></div>';
+    h += '<div class="row"><label class="field" style="flex:1"><span class="mut">' + ic('search', 18, 2) + '</span><span class="sr">Искать ЖК</span><input id="q" placeholder="Название, улица, ориентир" value="' + esc(S.q) + '"></label>' +
       '<button class="pill" style="height:46px;border-radius:12px;background:#1E2B43" data-act="clearq">' + (S.q ? 'Сброс' : 'Искать') + '</button></div>';
     h += '<div class="row" style="flex-wrap:wrap;gap:8px">' +
       '<button class="pill ' + (S.favOnly ? 'on' : '') + '" data-act="favonly">' + ic('heart', 16, 2) + 'Избранное</button>' +
-      '<button class="pill ' + (S.price ? 'on' : '') + '" data-act="price">' + PRICES[S.price][0] + ' ' + ic('down', 14, 2) + '</button>' +
-      '<button class="pill ' + (S.rooms ? 'on' : '') + '" data-act="rooms">' + ROOMS[S.rooms][0] + ' ' + ic('down', 14, 2) + '</button></div>';
-    h += '<h2 style="font-size:22px">Список наших ЖК</h2><div id="jklist" class="col" style="gap:14px">' + jkList() + '</div>';
+      '<button class="pill ' + (S.cls ? 'on' : '') + '" data-act="cls">' + CLASSES[S.cls] + ' ' + ic('down', 14, 2) + '</button>' +
+      '<button class="pill ' + (S.status ? 'on' : '') + '" data-act="status">' + STATUSES[S.status][0] + ' ' + ic('down', 14, 2) + '</button></div>';
+    h += '<h2 style="font-size:22px">Проекты Everest Development</h2><div id="jklist" class="col" style="gap:14px">' + jkList() + '</div>';
+    h += '<div class="mut" style="font-size:11px;line-height:1.4">Информация носит справочный характер и не является публичной офертой. Реализация начинается после получения разрешения на привлечение денег дольщиков согласно законодательству РК о долевом участии в жилищном строительстве.</div>';
     return h;
   }
 
@@ -233,12 +258,26 @@
   }
 
   function openSheet(k) {
-    var s = SHEETS[k];
+    var s = typeof k === 'string' ? SHEETS[k] : k;
     sheet.innerHTML = '<div class="overlay"><div class="bg" data-act="close"></div><div class="panel" role="dialog" aria-label="' + esc(s.title) + '"><div class="grab"></div>' +
       '<div class="between"><h2 style="font-size:22px;font-weight:600">' + s.title + '</h2><button class="iconbtn" data-act="close" aria-label="Закрыть">' + ic('close', 20, 2) + '</button></div>' +
+      '<div class="scrollin" style="display:flex;flex-direction:column;gap:10px;max-height:52vh;overflow-y:auto">' +
+      (s.img ? '<img src="' + s.img + '" alt="" style="width:100%;height:170px;object-fit:cover;border-radius:14px;flex:none" onerror="this.remove()">' : '') +
       '<div class="mut" style="font-size:15px;line-height:1.45">' + s.text + '</div>' +
-      s.rows.map(function (r) { return '<div class="srow"><span>' + r[0] + '</span><span class="gold">' + r[1] + '</span></div>'; }).join('') +
+      s.rows.map(function (r) {
+        var inner = '<span>' + r[0] + '</span><span class="gold" style="text-align:right">' + r[1] + '</span>';
+        return r[2] ? '<a class="srow" href="' + r[2] + '" target="_blank" rel="noopener" style="gap:12px">' + inner + '</a>' : '<div class="srow" style="gap:12px">' + inner + '</div>';
+      }).join('') + '</div>' +
       '<button class="btn" data-act="close">' + s.cta + '</button></div></div>';
+  }
+  function jkSheet(id) {
+    var d = JK.filter(function (j) { return j.id === id; })[0];
+    var rows = [['Класс', d.cls], ['Статус', STATUS[d.st]], ['Адрес', d.addr], ['Рядом', d.near]];
+    if (d.term && d.st !== 'done') rows.push(['Срок сдачи', d.term]);
+    if (d.units) rows.push(['Объём', d.units]);
+    if (d.site) rows.push(['Сайт проекта', d.site, 'https://' + d.site]);
+    rows.push(['Отдел продаж', PHONE, TEL]);
+    openSheet({ title: d.name, img: d.img, text: d.note || 'Проект Everest Development в Алматы.', rows: rows, cta: 'Закрыть' });
   }
 
   var toastT;
@@ -271,9 +310,9 @@
       case 'rate': S.rated[arg] = true; toast('Спасибо за отзыв!'); return render(true);
       case 'fav': S.favs[arg] = !S.favs[arg]; persist(); return render(true);
       case 'favonly': S.favOnly = !S.favOnly; return render(true);
-      case 'price': S.price = (S.price + 1) % PRICES.length; return render(true);
-      case 'rooms': S.rooms = (S.rooms + 1) % ROOMS.length; return render(true);
-      case 'consult': S.consult[arg] = !S.consult[arg]; return render(true);
+      case 'cls': S.cls = (S.cls + 1) % CLASSES.length; return render(true);
+      case 'status': S.status = (S.status + 1) % STATUSES.length; return render(true);
+      case 'jk': return jkSheet(arg);
       case 'clearq': S.q = ''; return render(true);
     }
   });

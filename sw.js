@@ -1,4 +1,4 @@
-var CACHE = 'everest-v1';
+var CACHE = 'everest-v2';
 var FILES = ['./', 'index.html', 'app.css', 'app.js', 'manifest.webmanifest', 'img/grand.jpg', 'img/towers.jpg', 'img/icon-192.png', 'img/icon-512.png'];
 
 self.addEventListener('install', function (e) {
