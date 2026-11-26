@@ -110,7 +110,7 @@ textarea{resize:none;font-size:14px}
 
 /* Logo */
 .logobtn{all:unset;cursor:pointer;align-self:flex-start;display:flex;align-items:center;min-height:36px;border-radius:8px}
-.logo{height:34px;max-width:200px;object-fit:contain;display:block}
+.logo{height:44px;max-width:200px;object-fit:contain;display:block}
 .white{filter:brightness(0) invert(1)}
 .logoopt{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:14px;background:#19253F;border:1px solid var(--line);flex:none}
 .logoopt.on{border-color:var(--gold)}

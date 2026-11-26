@@ -85,8 +85,9 @@
   // ---------- логотипы ----------
   // Чтобы добавить логотип клиента: положить файл в img/logos/ и добавить строку сюда.
   var LOGOS = [
-    { id: 'app', name: 'Everest App', note: 'вариант для прототипа', src: 'img/logo-app.svg' },
-    { id: 'ed', name: 'Everest Development', note: 'с сайта ed.group', src: ST + 'settings/June2025/o28Xgh3R4DZQEVlTN8l7.svg' }
+    { id: 'app', name: 'Everest App', note: 'вариант для прототипа', src: 'img/logo-app.svg', icon: 'img/icon-192.png', manifest: 'manifest.webmanifest' },
+    { id: 'ed', name: 'Everest Development', note: 'фирменный, белый', src: 'img/logos/ed-white.svg', icon: 'img/icon-ed-192.png', manifest: 'manifest-ed.webmanifest' },
+    { id: 'ed-blue', name: 'Everest Development', note: 'фирменный, синий (для светлого фона)', light: true, src: 'img/logos/ed-blue.svg', icon: 'img/icon-ed-192.png', manifest: 'manifest-ed.webmanifest' }
   ];
   var LS_LOGO = 'everest-logo', LS_CUSTOM = 'everest-logo-custom', LS_WHITE = 'everest-logo-white';
   function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
@@ -106,8 +107,11 @@
     return '<img class="' + cls + (LOGO.white ? ' white' : '') + '" src="' + (src || logoSrc()) + '" alt="Логотип" onerror="this.src=\'img/logo-app.svg\'">';
   }
   function applyLogo() {
-    var l = document.querySelector('link[rel=icon]');
-    if (l) l.href = logoSrc();
+    var cur = LOGO.id === 'custom' ? null : (logoById(LOGO.id) || LOGOS[0]);
+    var icon = cur ? cur.icon : LOGO.custom;
+    ['link[rel=icon]', 'link[rel=apple-touch-icon]'].forEach(function (q) { var l = document.querySelector(q); if (l) l.href = icon; });
+    var m = document.querySelector('link[rel=manifest]');
+    if (m) m.href = cur ? cur.manifest : 'manifest.webmanifest';
   }
   function shareLink() {
     var base = location.origin + location.pathname;
@@ -121,7 +125,7 @@
       '<div style="display:flex;flex-direction:column;gap:10px;max-height:46vh;overflow-y:auto">' +
       opts.map(function (o) {
         var on = o.id === LOGO.id;
-        return '<button class="logoopt' + (on ? ' on' : '') + '" data-act="picklogo" data-arg="' + o.id + '"><span class="lprev">' + logoImg('lp', o.src) + '</span>' +
+        return '<button class="logoopt' + (on ? ' on' : '') + '" data-act="picklogo" data-arg="' + o.id + '"><span class="lprev"' + (o.light ? ' style="background:#fff"' : '') + '>' + logoImg('lp', o.src) + '</span>' +
           '<span style="flex:1;min-width:0;text-align:left"><span style="display:block;font-size:15px;font-weight:600">' + esc(o.name) + '</span><span class="mut" style="font-size:12px">' + esc(o.note) + '</span></span>' +
           '<span class="gold">' + (on ? ic('check', 20, 2.2) : '') + '</span></button>';
       }).join('') +

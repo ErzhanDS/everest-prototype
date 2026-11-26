@@ -1,5 +1,5 @@
-var CACHE = 'everest-v4';
-var FILES = ['./', 'index.html', 'app.css', 'app.js', 'manifest.webmanifest', 'img/grand.jpg', 'img/towers.jpg', 'img/icon-192.png', 'img/icon-512.png', 'img/logo-app.svg'];
+var CACHE = 'everest-v5';
+var FILES = ['./', 'index.html', 'app.css', 'app.js', 'manifest.webmanifest', 'img/grand.jpg', 'img/towers.jpg', 'img/icon-192.png', 'img/icon-512.png', 'img/logo-app.svg', 'img/logos/ed-white.svg', 'img/logos/ed-blue.svg', 'img/icon-ed-192.png', 'img/icon-ed-512.png', 'manifest-ed.webmanifest'];
 
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(FILES); }));
