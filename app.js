@@ -61,22 +61,9 @@
     'Домофон': ['Настройка домофона', 'Не открывает дверь', 'Нет звука']
   };
   // Данные с ed.group (Everest Development). Цен на сайте нет — показываем «Узнать цену».
-  var ST = 'https://ed.group/storage/';
-  var JK = [
-    { id: 'athletic', name: 'ЖК «Athletic Park»', cls: 'Комфорт', addr: 'пр. Рыскулова – Онгарсыновой', near: '2 мин до Almaty Arena', st: 'build', term: 'I кв. 2027', units: '694 квартиры', site: 'athleticpark.kz', img: ST + 'projects/November2026/athletic-q2-04.jpg' },
-    { id: 'premier', name: 'ЖК «Premier»', cls: 'Бизнес', addr: '12 мкр., ул. Шаляпина', near: '10 мин до ТРЦ MOSKVA', st: 'build', term: 'I кв. 2027', units: '5 блоков', site: 'premier.ed.group', img: ST + 'projects/August2026/UHFamj52wFOrxjVkoD4q.jpg' },
-    { id: 'boulevard', name: 'ЖК «Everest Boulevard»', cls: 'Комфорт +', addr: 'ул. Халиуллина, мкр. Думан-2', near: '10 мин до аэропорта', st: 'sale', term: '', units: '8 блоков', site: 'everest-boulevard.kz', img: ST + 'projects/June2025/yo9FyUrhuCASvCPWFTVD.jpg' },
-    { id: 'arna', name: 'ЖК «Arna»', cls: 'Комфорт', addr: 'Ташкентский тракт, с. Иргели', near: '5 мин до Aport Mall', st: 'sale', term: '', units: '', site: 'arna-almaty.kz', img: ST + 'projects/June2025/TdrM5n3PKFfkWUqgaW53.jpg' },
-    { id: 'shygys', name: 'ЖК «Shygys»', cls: 'Комфорт', addr: 'Талгарский р-н, Алатауская трасса', near: '2 мин до Aport Mall', st: 'build', term: 'I кв. 2028', units: '', site: '', img: ST + 'projects/August2026/shygys-1.jpg', note: '«Шығыс» — «Восток», сторона, откуда начинается день.' },
-    { id: 'turkistan', name: 'Turkistan Apartments', cls: 'Инвестиционный', addr: 'ул. Макатаева 51/34', near: '8 мин до парка 28 панфиловцев', st: 'sale', term: '', units: '125 номеров (апарт-отель)', site: 'turkistan-almaty.kz', img: ST + 'projects/June2025/QSLiZwAOOMXVrk64TX7F.jpg' },
-    { id: 'ermensai', name: 'Таунхаусы «Ermensai Village»', cls: 'Бизнес', addr: 'мкр. Нурлытау, 14-я улица', near: '5 мин до пр. Аль-Фараби', st: 'done', term: 'Сдан', units: 'Таунхаусы', site: 'e-village.kz', img: ST + 'projects/June2025/KmAealvYadrkCSHBwWIw.webp' },
-    { id: 'baganashil', name: 'Коттеджный городок «Baganashil Hills»', cls: 'Премиум', addr: 'мкр. Баганашил', near: '7 мин до пр. Аль-Фараби', st: 'sale', term: '', units: 'Коттеджи', site: 'b-hills.kz', img: ST + 'projects/June2025/AqWhWtIaElUFGQAVv5Go.webp' },
-    { id: 'everest', name: 'ЖК «Everest»', cls: 'Комфорт +', addr: 'ул. Утеген батыра, 11', near: '3 мин до ТРЦ GrandPark', st: 'done', term: 'Сдан', units: '', site: 'everest.moydom.kz', img: ST + 'projects/June2025/fg1iWgzCj9LZ8npcVUGE.webp' },
-    { id: 'turar', name: 'ЖК «Turar»', cls: 'Комфорт', addr: 'пр. Рыскулова', near: '12 мин до центра', st: 'done', term: 'Сдан', units: '35 домов', site: 'turar-almaty.kz', img: ST + 'projects/June2025/sp4JkG5M0EBEv65BvH0C.jpg' },
-    { id: 'park', name: 'ЖК «Everest Park»', cls: 'Скоро', addr: 'мкр. Ботакоз, у Almaty Arena', near: '4 мин до Almaty Arena', st: 'soon', term: '', units: '', site: '', img: ST + 'projects/August2026/everest-park-1.jpg' },
-    { id: 'promenade', name: 'Полицентр «Almaty Promenade»', cls: 'Скоро', addr: 'Медеуский р-н, у Aport Mall East', near: '6 мин до Halyk Arena', st: 'soon', term: '', units: 'Многофункциональный', site: '', img: ST + 'projects/August2026/venice-1.jpg' }
-  ];
-  var STATUS = { build: 'Строится', sale: 'В продаже', done: 'Сдан', soon: 'Скоро' };
+  var ST = ED.ST;
+  var JK = ED.jk();
+  var STATUS = ED.JK_STATUS;
   var CLASSES = ['Все классы', 'Комфорт', 'Комфорт +', 'Бизнес', 'Премиум', 'Инвестиционный'];
   var STATUSES = [['Любой статус', ''], ['Строится', 'build'], ['В продаже', 'sale'], ['Сдан', 'done'], ['Скоро', 'soon']];
   var PHONE = '+7 (700) 040-04-00', TEL = 'tel:+77000400400', WA = 'https://wa.me/77000400400';
@@ -153,21 +140,18 @@
     polls: { title: 'Опросы', text: 'Голосования собственников ЖК.', rows: [['Благоустройство двора', 'Голосовать']], cta: 'Готово' },
     reports: { title: 'Отчёты', text: 'Отчёты УК о расходах и выполненных работах.', rows: [['Отчёт за квартал', 'PDF']], cta: 'Готово' },
     chat: { title: 'Елена В.', text: 'Менеджер объекта — УК Эверест. Напишите вопрос, ответ придёт в уведомления.', rows: [], cta: 'Открыть чат' },
-    promo7: { title: '7 героев. 7 квартир. Скидка 7%', text: 'Акция Everest Development от 16 сентября 2026. Условия уточняйте в отделе продаж.', rows: [['Отдел продаж', PHONE, TEL], ['WhatsApp', 'Написать', WA]], cta: 'Закрыть' },
-    mortgage: { title: 'Партнёрская ипотека', text: 'Ипотека с Банком ЦентрКредит на квартиры Everest Development. Ставки и условия — у менеджера.', rows: [['Отдел продаж', PHONE, TEL], ['WhatsApp', 'Написать', WA]], cta: 'Закрыть' },
-    storage: { title: 'Кладовые помещения', text: 'Кладовые в ЖК TURAR, Everest Boulevard и ARNA.', rows: [['Отдел продаж', PHONE, TEL], ['WhatsApp', 'Написать', WA]], cta: 'Закрыть' },
     contacts: { title: 'Everest Development', text: 'Отдел продаж: sales@ed.group. Короткий номер — 202.', rows: [['Позвонить', PHONE, TEL], ['WhatsApp', 'Написать', WA], ['Telegram', 'everest_development', 'https://t.me/everest_development'], ['Instagram', 'everest_development_kz', 'https://instagram.com/everest_development_kz']].concat(OFFICES.map(function (o, i) { return ['Офис ' + (i + 1), o]; })), cta: 'Закрыть' },
-    notif: { title: 'Уведомления', text: 'Новые предложения Everest Development', rows: [['7 героев. 7 квартир. Скидка 7%', 'Новое'], ['Партнёрская ипотека ЦентрКредит', ''], ['Кладовые в TURAR, Boulevard, ARNA', '']], cta: 'Закрыть' }
   };
 
   // ---------- state ----------
   var S = {
     flat: 0, flatOpen: false,
-    step: 'home', loc: 0, cat: 0, work: '', comment: '', extra: [], rated: {},
+    step: 'home', loc: 0, cat: 0, work: '', comment: '', lastReq: null,
     q: '', cls: 0, status: 0, favOnly: false, favs: {}
   };
-  try { var saved = JSON.parse(localStorage.getItem('everest') || '{}'); S.favs = saved.favs || {}; S.extra = saved.extra || []; } catch (e) {}
-  function persist() { try { localStorage.setItem('everest', JSON.stringify({ favs: S.favs, extra: S.extra })); } catch (e) {} }
+  try { var saved = JSON.parse(localStorage.getItem('everest') || '{}'); S.favs = saved.favs || {}; } catch (e) {}
+  function persist() { try { localStorage.setItem('everest', JSON.stringify({ favs: S.favs })); } catch (e) {} }
+  function unread() { return ED.notifs().filter(function (n) { return !n.read; }).length; }
 
   var view = document.getElementById('view');
   var sheet = document.getElementById('sheet');
@@ -187,15 +171,17 @@
     var h = '<button class="logobtn" data-act="logo" aria-label="Сменить логотип">' + logoImg('logo') + '</button>' +
       '<div class="between" style="align-items:flex-start;margin-top:-8px"><div class="col" style="gap:6px"><h1>Главная</h1>' +
       '<button class="link gold" data-act="flat" style="font-size:16px;min-height:28px">' + esc(FLATS[S.flat]) + ' ' + ic('down', 16, 2) + '</button></div>' +
-      '<div class="row"><button class="iconbtn" data-act="sheet" data-arg="notif" aria-label="Уведомления">' + ic('bell', 24) + '<span class="dot"></span></button><div class="avatar">М</div></div></div>';
+      '<div class="row"><button class="iconbtn" data-act="notif" aria-label="Уведомления">' + ic('bell', 24) + (unread() ? '<span class="dot"></span>' : '') + '</button><div class="avatar">М</div></div></div>';
     if (S.flatOpen) {
       h += '<div class="dropdown">' + FLATS.map(function (f, i) {
         return '<button data-act="pickflat" data-arg="' + i + '" class="' + (i === S.flat ? 'on' : '') + '"><span>' + esc(f) + '</span><span class="gold">' + (i === S.flat ? ic('check', 18, 2.2) : '') + '</span></button>';
       }).join('') + '</div>';
     }
-    var promos = [['promo7', 'Скидка 7%', '7 героев. 7 квартир', '#3A3420,#1A2234'], ['mortgage', 'Ипотека', 'с Банком ЦентрКредит', '#36404F,#1A2234'], ['storage', 'Кладовые', 'TURAR · Boulevard · ARNA', '#2B3B4A,#15202F']];
-    h += '<section class="col"><h2>Акции и спец-предложения</h2><div class="hs">' + promos.map(function (p) {
-      return '<button class="promo" style="all:unset;box-sizing:border-box;cursor:pointer;flex:0 0 180px;height:120px;border-radius:18px;padding:12px;border:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;background:linear-gradient(160deg,' + p[3] + ')" data-act="sheet" data-arg="' + p[0] + '"><span class="chip sm">Акции</span><div><b>' + p[1] + '</b><span style="font-size:14px">' + p[2] + '</span></div></button>';
+    var COLORS = ['#3A3420,#1A2234', '#36404F,#1A2234', '#2B3B4A,#15202F', '#24384A,#141E33'];
+    var pub = ED.content().filter(function (c) { return c.published; });
+    var promos = pub.filter(function (c) { return c.kind === 'promo'; });
+    if (promos.length) h += '<section class="col"><h2>Акции и спец-предложения</h2><div class="hs">' + promos.map(function (p, i) {
+      return '<button class="promo" style="all:unset;box-sizing:border-box;cursor:pointer;flex:0 0 180px;height:120px;border-radius:18px;padding:12px;border:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;background:linear-gradient(160deg,' + COLORS[i % 4] + ')" data-act="content" data-arg="' + p.id + '"><span class="chip sm">Акции</span><div><b>' + esc(p.title) + '</b><span style="font-size:14px">' + esc(p.sub || '') + '</span></div></button>';
     }).join('') + '</div></section>';
     var onSale = JK.filter(function (j) { return j.st !== 'done'; }).length;
     h += '<section class="col"><a href="#/catalog" class="link" style="font-size:19px;font-weight:500">Каталог наших ЖК <span class="gold">' + ic('arrow', 18, 2) + '</span></a>' +
@@ -208,9 +194,11 @@
     h += '<section class="col"><h2>Услуги</h2><div class="svc">' + svc.map(function (s) {
       return '<a href="#/services"><span>' + ic(s[0], 28, 1.7) + '</span>' + s[1] + '</a>';
     }).join('') + '</div></section>';
-    var news = [['promo7', '16 сен 2026', '7 героев. 7 квартир. Скидка 7%'], ['mortgage', 'Ипотека', 'Партнёрская ипотека с Банком ЦентрКредит'], ['storage', 'Кладовые', 'Кладовые помещения в ЖК TURAR, Everest Boulevard и ARNA']];
-    h += '<section class="col"><h2>Новости Everest Development</h2>' + news.map(function (n, i) {
-      return '<button class="news" style="all:unset;box-sizing:border-box;cursor:pointer;border-radius:20px;padding:16px;background:' + (i ? 'var(--card)' : 'linear-gradient(135deg,#3A4A63 0%,#1C2840 70%)') + ';border:1px solid var(--line);display:flex;flex-direction:column;gap:8px" data-act="sheet" data-arg="' + n[0] + '"><div class="between"><span class="mut" style="font-size:12px">' + n[1] + '</span><span class="chip sm">Читать →</span></div><div style="font-size:' + (i ? 16 : 19) + 'px;font-weight:500;line-height:1.25">' + n[2] + '</div></button>';
+    var news = pub.slice().sort(function (a, b) { return b.date < a.date ? -1 : 1; }).map(function (c) {
+      return [c.id, new Date(c.date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'short', year: 'numeric' }), c.full || c.title];
+    });
+    if (news.length) h += '<section class="col"><h2>Новости Everest Development</h2>' + news.map(function (n, i) {
+      return '<button class="news" style="all:unset;box-sizing:border-box;cursor:pointer;border-radius:20px;padding:16px;background:' + (i ? 'var(--card)' : 'linear-gradient(135deg,#3A4A63 0%,#1C2840 70%)') + ';border:1px solid var(--line);display:flex;flex-direction:column;gap:8px" data-act="content" data-arg="' + n[0] + '"><div class="between"><span class="mut" style="font-size:12px">' + n[1] + '</span><span class="chip sm">Читать →</span></div><div style="font-size:' + (i ? 16 : 19) + 'px;font-weight:500;line-height:1.25">' + esc(n[2]) + '</div></button>';
     }).join('') + '</section>';
     h += '<button class="box row" style="all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:12px;border-radius:18px;background:var(--card);border:1px solid var(--line);padding:14px" data-act="sheet" data-arg="contacts"><span class="gold">' + ic('staff', 28, 1.6) + '</span><div style="flex:1"><div style="font-size:16px;font-weight:600">Отдел продаж</div><div class="mut" style="font-size:13px">' + PHONE + ' · 5 офисов в Алматы</div></div><span class="gold">' + ic('arrow', 18, 2) + '</span></button>';
     return h;
@@ -242,13 +230,15 @@
       h += '<h2 style="font-size:17px;font-weight:600">Локация</h2><div class="grid3">' + LOCS.map(function (l, i) {
         return '<button class="card" style="height:92px;font-size:14px" data-act="loc" data-arg="' + i + '"><span class="ic">' + ic(l.icon, 30, 1.6) + '</span>' + l.name + '</button>';
       }).join('') + '</div>';
-      var base = [{ title: 'Ремонт розетки', who: 'Мастер И.' }, { title: 'Устранение протечки', who: 'Мастер А.' }, { title: 'Настройка домофона', who: 'Мастер С.' }];
-      var all = S.extra.concat(base);
-      h += '<div class="box" style="background:#121B2F"><h2 style="font-size:17px;font-weight:600;margin-bottom:6px">История заявок</h2>' + all.map(function (r, i) {
-        var live = r.live;
-        var btn = live ? 'Отменить' : (S.rated[r.title] ? 'Спасибо!' : 'Оставить отзыв');
-        var act = live ? 'data-act="cancel" data-arg="' + i + '"' : 'data-act="rate" data-arg="' + esc(r.title) + '"';
-        return '<div class="hist"><span class="mut" style="width:18px;font-size:14px">' + (i + 1) + '.</span><div style="flex:1;min-width:0"><div style="font-size:15px">' + esc(r.title) + '</div><div class="mut" style="font-size:12px">' + esc(r.who) + ' · ' + (live ? '<span class="gold">В работе</span>' : 'Выполнена') + '</div></div><button ' + act + '>' + btn + '</button></div>';
+      var mine = ED.requests().filter(function (r) { return r.flat === ED.MY_FLAT; });
+      h += '<div class="box" style="background:#121B2F"><h2 style="font-size:17px;font-weight:600;margin-bottom:6px">История заявок</h2>' + (mine.length ? '' : '<div class="mut" style="font-size:14px;padding:8px 0">Заявок пока нет</div>') + mine.map(function (r, i) {
+        var m = ED.master(r.master);
+        var st = ED.REQ_STATUS[r.status];
+        var stHtml = r.status === 'work' || r.status === 'new' ? '<span class="gold">' + st + '</span>' : st;
+        var btn = '', act = '';
+        if (r.status === 'new' || r.status === 'work') { btn = 'Отменить'; act = 'data-act="cancel" data-arg="' + r.id + '"'; }
+        else if (r.status === 'done') { btn = r.rating ? 'Оценка ' + r.rating + '★' : 'Оставить отзыв'; act = 'data-act="rate" data-arg="' + r.id + '"'; }
+        return '<div class="hist"><span class="mut" style="width:18px;font-size:14px">' + (i + 1) + '.</span><div style="flex:1;min-width:0"><div style="font-size:15px">' + esc(r.work) + '</div><div class="mut" style="font-size:12px">№' + r.id + ' · ' + (m ? esc(m.name) + ' · ' : '') + stHtml + '</div></div>' + (btn ? '<button ' + act + '>' + btn + '</button>' : '') + '</div>';
       }).join('') + '</div>';
     } else if (S.step === 'form') {
       var cat = loc.cats[S.cat][0];
@@ -267,9 +257,9 @@
       h += '<button class="link mut" style="align-self:flex-end;font-size:13px;min-height:32px" data-act="toast" data-arg="Загрузка фото/видео — в следующей версии">' + ic('clip', 14, 2) + 'Прикрепить фото/видео</button>';
       h += '<button class="btn send" data-act="send">ОТПРАВИТЬ ЗАЯВКУ</button>';
     } else {
-      var last = S.extra[0] || { title: '' };
+      var last = S.lastReq || { id: '', work: '', loc: '', cat: '' };
       h += '<div class="done"><span style="width:64px;height:64px;border-radius:50%;background:rgba(226,191,106,.16);display:flex;align-items:center;justify-content:center" class="gold">' + ic('check', 32, 2.2) + '</span>' +
-        '<h2 style="font-size:22px;font-weight:600">Заявка отправлена</h2><div class="mut" style="font-size:15px;line-height:1.45">' + esc(last.title) + ' (' + esc(last.who) + '). Мастер свяжется с вами, статус — в истории заявок.</div>' +
+        '<h2 style="font-size:22px;font-weight:600">Заявка №' + last.id + ' отправлена</h2><div class="mut" style="font-size:15px;line-height:1.45">' + esc(last.work) + ' (' + esc(last.loc) + ', ' + esc(last.cat) + '). Управляющая компания назначит мастера, статус — в истории заявок.</div>' +
         '<button class="btn" style="padding:13px 22px" data-act="back">К услугам</button></div>';
     }
     return h;
@@ -310,6 +300,7 @@
   var TABS = [['main', 'home', 'Главная'], ['home', 'myhome', 'Мой дом'], ['services', 'wrench', 'Услуги'], ['catalog', 'map', 'Каталог']];
 
   function render(keepScroll) {
+    JK = ED.jk();
     var r = route();
     if (!SCREENS[r]) r = 'main';
     var top = view.scrollTop;
@@ -332,6 +323,23 @@
         return r[2] ? '<a class="srow" href="' + r[2] + '" target="_blank" rel="noopener" style="gap:12px">' + inner + '</a>' : '<div class="srow" style="gap:12px">' + inner + '</div>';
       }).join('') + '</div>' +
       '<button class="btn" data-act="close">' + s.cta + '</button></div></div>';
+  }
+  function contentSheet(id) {
+    var c = ED.content().filter(function (x) { return x.id === id; })[0];
+    if (!c) return;
+    openSheet({ title: esc(c.full || c.title), text: esc(c.text || ''), rows: [['Отдел продаж', PHONE, TEL], ['WhatsApp', 'Написать', WA]], cta: 'Закрыть' });
+  }
+  function notifSheet() {
+    var ns = ED.notifs();
+    openSheet({ title: 'Уведомления', text: ns.length ? '' : 'Уведомлений нет', rows: ns.map(function (n) { return [esc(n.title) + '<span class="mut" style="display:block;font-size:12px;margin-top:2px">' + esc(n.text) + '</span>', n.read ? ED.fmtDate(n.date).split(',')[0] : 'Новое']; }), cta: 'Закрыть' });
+    ns.forEach(function (n) { n.read = true; }); ED.saveNotifs(ns); render(true);
+  }
+  function rateSheet(id) {
+    var r = ED.requests().filter(function (x) { return x.id === id; })[0];
+    sheet.innerHTML = '<div class="overlay"><div class="bg" data-act="close"></div><div class="panel"><div class="grab"></div><h2 style="font-size:20px;font-weight:600">Оцените работу</h2><div class="mut" style="font-size:14px">' + esc(r.work) + ' · №' + r.id + '</div>' +
+      '<div class="row" style="justify-content:center;gap:8px">' + [1, 2, 3, 4, 5].map(function (n) {
+        return '<button class="iconbtn" style="font-size:34px;color:' + (n <= (r.rating || 0) ? 'var(--gold)' : 'rgba(255,255,255,.25)') + '" data-act="stars" data-arg="' + id + ':' + n + '" aria-label="' + n + ' из 5">★</button>';
+      }).join('') + '</div><button class="btn outline" data-act="close">Позже</button></div></div>';
   }
   function jkSheet(id) {
     var d = JK.filter(function (j) { return j.id === id; })[0];
@@ -375,10 +383,13 @@
       case 'cat': S.cat = +arg; S.work = ''; return render(true);
       case 'back': S.step = 'home'; return render();
       case 'send':
-        S.extra.unshift({ title: S.work, who: LOCS[S.loc].name + ', ' + LOCS[S.loc].cats[S.cat][0], live: true });
-        S.step = 'sent'; persist(); return render();
-      case 'cancel': S.extra.splice(+arg, 1); persist(); toast('Заявка отменена'); return render(true);
-      case 'rate': S.rated[arg] = true; toast('Спасибо за отзыв!'); return render(true);
+        S.lastReq = ED.addRequest({ flat: ED.MY_FLAT, resident: 'Мадина (вы)', phone: '+7 700 *** 11 22', loc: LOCS[S.loc].name, cat: LOCS[S.loc].cats[S.cat][0], work: S.work, comment: S.comment });
+        S.step = 'sent'; S.comment = ''; return render();
+      case 'cancel': ED.updateRequest(+arg, { status: 'cancel' }); toast('Заявка отменена'); return render(true);
+      case 'rate': return rateSheet(+arg);
+      case 'stars': var p2 = arg.split(':'); ED.updateRequest(+p2[0], { rating: +p2[1] }); sheet.innerHTML = ''; toast('Спасибо за отзыв!'); return render(true);
+      case 'content': return contentSheet(arg);
+      case 'notif': return notifSheet();
       case 'fav': S.favs[arg] = !S.favs[arg]; persist(); return render(true);
       case 'favonly': S.favOnly = !S.favOnly; return render(true);
       case 'cls': S.cls = (S.cls + 1) % CLASSES.length; return render(true);
@@ -405,6 +416,12 @@
       return;
     }
     if (e.target.id === 'work') S.work = e.target.value;
+  });
+  window.addEventListener('storage', function (e) {
+    if (!e.key || e.key.indexOf('ed.') !== 0) return;
+    if (e.key === 'ed.notifs' && unread()) toast('Новое уведомление');
+    if (e.key === 'ed.requests') toast('Статус заявки обновлён');
+    if (!sheet.innerHTML) render(true);
   });
   window.addEventListener('hashchange', function () { sheet.innerHTML = ''; S.flatOpen = false; render(); });
 
